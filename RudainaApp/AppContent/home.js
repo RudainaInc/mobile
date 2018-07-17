@@ -11,8 +11,8 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
           <View style = {styles.header}>
-            <Image
-            //source={require('')}
+            <Image style = {styles.logo}
+            source={require('../webContent/RudainaLogo.png')}
             />
           
           </View>
@@ -22,20 +22,18 @@ class HomeScreen extends React.Component {
 
               <View style={styles.Input}>
                   <Text style={styles.InputTitle}>Username: </Text>
-                  <TextInput style={styles.textInput} 
-                              secureTextEntry={false}
-                              StyleSheet ={styles.textInput}
-                              placeholder="Please enter your username!"
-                              onChangeText={(text) => this.setState({text})}
-                  />
+                  <TextInput style={styles.inputContainer} 
+                      secureTextEntry={false}
+                      placeholder="Please enter your username!"
+                      onChangeText={(text) => this.setState({text})}
+                    />
               </View>
               
               <View style={styles.Input}> 
                   <Text style={styles.InputTitle}>Password: </Text>
-                  <TextInput style={styles.textInput}
+                  <TextInput style={styles.inputContainer}
                       title ="Password: "
                       secureTextEntry={true}
-                      StyleSheet ={styles.textInput}
                       placeholder="Please enter your password!"
                       onChangeText={(text) => this.setState({text})}
                   />
@@ -74,7 +72,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'powderblue',
     width: 380,
     height: 85,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+  },
+  logo: {
+    width: 100,
+    height: 85,
+    marginLeft: 15,
   },
   content: {
     backgroundColor: 'skyblue',
@@ -96,19 +99,35 @@ const styles = StyleSheet.create({
     fontSize: 30,
     flexDirection: 'row',
   },
-  textInput: {
+  inputContainer: {
     width: 200,
+    height: 35,
+    marginTop: 10,
+    backgroundColor: '#fff',
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+    
   },
   Input: {
     marginTop: 15,
-    flexDirection: 'row',
-    justifyContent:'space-between'
+    flexDirection: 'column',
+    justifyContent:'space-between',
+    borderTopColor: '#000000',
+    borderTopColor: 1,
+    borderLeftColor: '#000000',
+    borderLeftColor: 1,
   },
   InputTitle: {
+    fontSize: 20,
+    //fontFamily: AvenirNext-UltraLight,
   },
   submitButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderLeftColor: '#000000',
+    borderLeftColor: 1,
+    backgroundColor: '#fff',
+    color: 'red',
   }
 });
 

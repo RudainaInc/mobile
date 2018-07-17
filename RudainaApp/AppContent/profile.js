@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, Alert } from 'react-native';
-import { Constants } from 'expo';
+import { Text, View, StyleSheet, Button, Alert, ListView, Image} from 'react-native';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+//import { Constants } from 'expo';
 
 class ProfileScreen extends Component {
+
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(['UserInfo', 'UserInfo', 'UserInfo', 'UserInfo', 'UserInfo']),
+    };
+  }
+
   _onPressButton() {
     Alert.alert('You tapped the button!')
   };
   static navigationOptions = {
     title: 'Profiles!',
+  };
+  _menu = null;
+ 
+  setMenuRef = ref => {
+    this._menu = ref;
+  };
+ 
+  hideMenu = () => {
+    this._menu.hide();
+  };
+ 
+  showMenu = () => {
+    this._menu.show();
   };
   
   render() {
@@ -16,11 +39,26 @@ class ProfileScreen extends Component {
       <View style={styles.container}>
 
           <View style={styles.header}>
-            <Text>This is the header area!</Text>
+              <Image style = {styles.logo}
+                    source={require('../webContent/RudainaLogo.png')}
+                  />
           </View>
 
           <View style={styles.content}>
-              <Text>This is the content area!</Text>
+              <View style={styles.profileHeading}>
+                  <Text style={styles.profileHeadingText}> Profile: </Text>
+                  <Image style = {styles.userInfo}
+                    source={require('../webContent/person.jpg')}
+                  />
+
+               </View>
+              <View>
+                  <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={(rowData) => <Text>{rowData}</Text>}
+                  />
+               </View>
+                  
             </View>
 
           <View style={styles.footer}>
@@ -39,10 +77,15 @@ class ProfileScreen extends Component {
                 title="Fleppy"
               />
 
-              <Button style={styles.submitButton}
-                onPress={this._onPressButton}
-                title="Menu"
-              />
+              <Menu
+                ref={this.setMenuRef}
+                button={<Text onPress={this.showMenu}>Menu</Text>}>
+                  <MenuItem onPress={this.hideMenu}>Menu item 1</MenuItem>
+                  <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
+                  <MenuItem onPress={this.hideMenu} disabled> Menu item 3</MenuItem>
+                  <MenuDivider />
+                  <MenuItem onPress={this.hideMenu}>Menu item 4</MenuItem>
+                </Menu>
           </View>
         
       </View>
@@ -60,13 +103,36 @@ const styles = StyleSheet.create({
     backgroundColor: 'powderblue',
     width: 380,
     height: 85,
-    alignItems: 'center',
+    alignItems: 'flex-start',
+  },
+  logo: {
+    width: 100,
+    height: 85,
+    marginLeft: 15,
   },
   content: {
     backgroundColor: 'skyblue',
     width: 380,
     height: 450,
     alignItems: 'center',
+  },
+  profileHeading:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 5,
+    backgroundColor:'white',
+    flexDirection: 'row',
+    height: 70,
+    width: 380,
+  },
+  userInfo:{
+    width: 100,
+    height: 70,
+    margin: 25,
+  },
+  profileHeadingText:{
+    fontSize:20,
+    margin:25,
   },
   submitButton: {
     margin: 30,
@@ -81,6 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-between',
+    padding: 15,
   }
 })
 
