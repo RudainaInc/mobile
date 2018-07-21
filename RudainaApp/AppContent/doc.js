@@ -1,103 +1,103 @@
 import React from 'react';
-import { Button, View, StyleSheet, Text, Image, ScrollView} from 'react-native';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Button,
+  } from 'react-native';
+  import { Constants, Permissions, ImagePicker } from 'expo';
+
+const { width } = Dimensions.get('window')
 
 class DocScreen extends React.Component {
-    static navigationOptions = {
-      title: 'Docs',
-    };
-    _menu = null;
- 
-  setMenuRef = ref => {
-    this._menu = ref;
-  };
- 
-  hideMenu = () => {
-    this._menu.hide();
-  };
- 
-  showMenu = () => {
-    this._menu.show();
-  };
+      state = {
+        image: null,
+      };
+      pickFromGallery = async () => {
+        const permissions = Permissions.CAMERA_ROLL;
+        const { status } = await Permissions.askAsync(permissions);
+
+        console.log(permissions, status);
+        if(status === 'granted') {
+          let image = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            //mediaTypes: 'Images',
+          }).catch(error => console.log(permissions, { error }));
+          console.log(permissions, 'SUCCESS', image);
+          
+        }
+      }
+
+      pickFromCamera = async () => {
+        const permissions = Permissions.CAMERA;
+        const { status } = await Permissions.askAsync(permissions);
+
+        console.log(permissions, status);
+        if(status === 'granted') {
+          let image = await ImagePicker.launchCameraAsync({
+            mediaTypes: 'Images',
+          }).catch(error => console.log(permissions, { error }));
+          console.log(permissions, 'SUCCESS', image);
+        }
+      }
+
+
     render() {
-      const { navigate } = this.props.navigation;
+      let { image } = this.state;
       return (
-        <View style={styles.container}>
-            <View style={styles.header}> 
-                <Image style = {styles.logo}
-                    source={require('../webContent/RudainaLogo.png')}
-                  />
-            </View>
-
-            <View style={styles.content}>
-
-                </View>
-            <View style={styles.footer}>
-                <Button style={styles.submitButton}
-                    onPress={() => navigate('Doc')}
-                    title="Docs"
-                  />
-
-                  <Button style={styles.submitButton}
-                    onPress={() => navigate('Tracker')}
-                    title="Tracker"
-                  />
-
-                  <Button style={styles.submitButton}
-                    onPress={() => navigate('Game')}
-                    title="Fleppy"
-                  />
-
-                  <Menu
-                    ref={this.setMenuRef}
-                    button={<Text onPress={this.showMenu}>Menu</Text>}>
-                      <MenuItem onPress={this.hideMenu}>Menu item 1</MenuItem>
-                      <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
-                      <MenuItem onPress={this.hideMenu} disabled> Menu item 3</MenuItem>
-                      <MenuDivider />
-                      <MenuItem onPress={this.hideMenu}>Menu item 4</MenuItem>
-                    </Menu>
-                </View>
-
-        </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Button
+          title="Pick an image from camera roll"
+          onPress={this._takeCamera}
+        />
+        {image &&
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      </View>
       );
     }
+    _pickImage = async () => {
+      const permissions = Permissions.CAMERA;
+      const { status } = await Permissions.askAsync(permissions);
+      if(status === 'granted') {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: 'Images',
+          allowsEditing: true,
+          aspect: [4, 3],
+        });
+        console.log(result);
+        if (!result.cancelled) {
+          this.setState({ image: result.uri });
+        }
+      }
+    };
+
+    _takeCamera = async () => {
+      const permissions = Permissions.CAMERA;
+      const { status } = await Permissions.askAsync(permissions);
+        if(status === 'granted') {
+          let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: 'Images',
+            allowsEditing: true,
+            aspect: [4, 3],
+          });
+        console.log(result);
+        if (!result.cancelled) {
+          this.setState({ image: result.uri });
+        }
+      }
+    };
   }
 
   const styles = StyleSheet.create({
-      container:{
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-
-      },
-      header: {
-        backgroundColor: 'powderblue',
-        width: 380,
-        height: 85,
-        alignItems: 'flex-start',
-      },
-      logo: {
-        width: 100,
-        height: 85,
-        marginLeft: 15,
-      },
-      content: {
-        backgroundColor: 'skyblue',
-        width: 380,
-        height: 450,
-        alignItems: 'center',
-      },
-      footer: {
-        flex: 1,
-        flexDirection: 'row',
-        width: 380,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 15,
-      }
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      paddingTop: Constants.statusBarHeight,
+      backgroundColor: '#ecf0f1',
+    },
   })
 
   export default DocScreen;

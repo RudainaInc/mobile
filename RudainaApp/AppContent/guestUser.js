@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Button, Alert, Text, Image} from 'react-native';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { StyleSheet, View, Button, Alert, Text, Image, Dimensions} from 'react-native';
+//import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import ImageSlider from 'react-native-image-slider';
+import { Icon } from 'react-native-elements';
 
+var dimensions = Dimensions.get('screen');
 
 class GuestScreen extends React.Component {
   _onPressButton() {
@@ -37,7 +39,6 @@ class GuestScreen extends React.Component {
           </View>
 
           <View style={styles.content}>
-              <Text>This is the content area!</Text>
               <ImageSlider images={[
                   'http://placeimg.com/640/480/any',
                   'http://placeimg.com/640/480/any',
@@ -46,12 +47,14 @@ class GuestScreen extends React.Component {
             </View>
 
           <View style={styles.footer}>
-              <Button style={styles.submitButton}
+              {/* <Button style={styles.submitButton}
                 onPress={() => navigate('Doc')}
                 title="Docs"
-              />
+              /> */}
+              <Icon
+                 name='rowing' />
 
-              <Button style={styles.submitButton}
+              {/* <Button style={styles.submitButton}
                 onPress={() => navigate('Tracker')}
                 title="Tracker"
               />
@@ -69,7 +72,7 @@ class GuestScreen extends React.Component {
                   <MenuItem onPress={this.hideMenu} disabled> Menu item 3</MenuItem>
                   <MenuDivider />
                   <MenuItem onPress={this.hideMenu}>Menu item 4</MenuItem>
-                </Menu>
+                </Menu> */}
           </View>
         
       </View>
@@ -80,42 +83,43 @@ class GuestScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1,
     justifyContent: 'space-between',
   },
   header: {
     backgroundColor: 'powderblue',
-    width: 380,
-    height: 85,
+    width: dimensions.width,
+    height: dimensions.height*0.15,
     alignItems: 'flex-start',
   },
-  logo: {
-    width: 100,
-    height: 85,
-    marginLeft: 15,
-  },
+   logo: {
+     width: dimensions.width*0.20,
+     height: dimensions.height*0.15,
+     marginLeft: dimensions.width*0.15,
+   },
   content: {
     backgroundColor: 'skyblue',
-    width: 380,
-    height: 450,
+    width: dimensions.width,
+    height: dimensions.height*0.65,
     alignItems: 'center',
   },
   submitButton: {
-    margin: 30,
-    marginVertical:20,
-    justifyContent: 'space-between',
-    paddingBottom: 20,
-  },
-  footer: {
-    flex: 1,
     flexDirection: 'row',
-    //marginTop: 5,
-    width: 380,
+    justifyContent: 'space-between',
+    borderLeftColor: '#000000',
+    borderLeftColor: 1,
     backgroundColor: '#fff',
+    color: 'red',
+  }, 
+  footer: {
+    marginRight: dimensions.width*0.2,
+    marginLeft: dimensions.width*0.01,
+    flexDirection: 'row',
+    width: dimensions.width,
+    height: dimensions.height*0.1,
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 15,
-  }
+  },
 })
 
 export default GuestScreen;

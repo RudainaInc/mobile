@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Image} from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, Dimensions} from 'react-native';
 
+var dimensions = Dimensions.get('screen');
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -12,13 +13,13 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
           <View style = {styles.header}>
             <Image style = {styles.logo}
-            source={require('../webContent/RudainaLogo.png')}
+              source={require('../webContent/RudainaLogo.png')}
             />
           
           </View>
 
           <View style = {styles.content}>
-              <Text style = {styles.welcomeText}>Please login!</Text>
+               <Text style = {styles.welcomeText}>Please login!</Text>
 
               <View style={styles.Input}>
                   <Text style={styles.InputTitle}>Username: </Text>
@@ -37,8 +38,8 @@ class HomeScreen extends React.Component {
                       placeholder="Please enter your password!"
                       onChangeText={(text) => this.setState({text})}
                   />
-                </View>
-              <View>
+                </View> 
+               <View>
                   <Button style={styles.submitButton}
                   
                     onPress={() => navigate('Profile')}
@@ -49,7 +50,7 @@ class HomeScreen extends React.Component {
                     onPress={() => navigate('Guest')}
                     title="Continue as guest!"
                   />
-                </View>
+                </View> 
           </View>
 
           <View style={styles.footer}>
@@ -65,70 +66,68 @@ class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    flex: 1,
     justifyContent: 'space-between',
   },
   header: {
     backgroundColor: 'powderblue',
-    width: 380,
-    height: 85,
+    width: dimensions.width,
+    height: dimensions.height*0.15,
     alignItems: 'flex-start',
   },
-  logo: {
-    width: 100,
-    height: 85,
-    marginLeft: 15,
-  },
+   logo: {
+     width: dimensions.width*0.20,
+     height: dimensions.height*0.15,
+     marginLeft: dimensions.width*0.15,
+   },
   content: {
     backgroundColor: 'skyblue',
-    width: 380,
-    height: 450,
+    width: dimensions.width,
+    height: dimensions.height*0.65,
     alignItems: 'center',
   },
   footer: {
-    flex: 1,
     flexDirection: 'row',
-    width: 380,
+    width: dimensions.width,
+    height: dimensions.height*0.2,
     backgroundColor: 'steelblue',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  welcomeText: {
-    marginTop: 30,
-    flexDirection: 'row',
-    fontSize: 30,
-    flexDirection: 'row',
-  },
-  inputContainer: {
-    width: 200,
-    height: 35,
-    marginTop: 10,
-    backgroundColor: '#fff',
-    borderBottomColor: '#000000',
-    borderBottomWidth: 1,
+   welcomeText: {
+     marginTop: dimensions.height*0.08,
+     flexDirection: 'row',
+     fontSize: 30,
+     flexDirection: 'row',
+   },
+   inputContainer: {
+     width: dimensions.width*0.55,
+     height: dimensions.height*0.06,
+     marginTop: dimensions.height*0.01,
+     backgroundColor: '#fff',
+     borderBottomColor: '#000000',
+     borderBottomWidth: 1,
     
-  },
-  Input: {
-    marginTop: 15,
-    flexDirection: 'column',
-    justifyContent:'space-between',
-    borderTopColor: '#000000',
-    borderTopColor: 1,
-    borderLeftColor: '#000000',
-    borderLeftColor: 1,
-  },
-  InputTitle: {
-    fontSize: 20,
-    //fontFamily: AvenirNext-UltraLight,
-  },
-  submitButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderLeftColor: '#000000',
-    borderLeftColor: 1,
-    backgroundColor: '#fff',
-    color: 'red',
-  }
+   },
+   Input: {
+     marginTop: dimensions.height*0.02,
+     flexDirection: 'column',
+     justifyContent:'space-between',
+     borderTopColor: '#000000',
+     borderTopColor: 1,
+     borderLeftColor: '#000000',
+     borderLeftColor: 1,
+   },
+   InputTitle: {
+     fontSize: 20,
+   },
+   submitButton: {
+     flexDirection: 'row',
+     justifyContent: 'space-between',
+     borderLeftColor: '#000000',
+     borderLeftColor: 1,
+     backgroundColor: '#fff',
+     color: 'red',
+   } 
 });
 
 export default HomeScreen;
