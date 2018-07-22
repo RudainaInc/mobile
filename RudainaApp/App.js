@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Alert, Image, Label } from 'react-native';
+
 import {
   createStackNavigator,
 } from 'react-navigation';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Button, Alert, Text, Image, Dimensions} from 'react-native';
-//import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { StyleSheet, View, Alert, Text, Image, Dimensions} from 'react-native';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import ImageSlider from 'react-native-image-slider';
-import { Icon } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 var dimensions = Dimensions.get('screen');
 
@@ -47,32 +47,20 @@ class GuestScreen extends React.Component {
             </View>
 
           <View style={styles.footer}>
-              {/* <Button style={styles.submitButton}
-                onPress={() => navigate('Doc')}
-                title="Docs"
-              /> */}
-              <Icon
-                 name='rowing' />
-
-              {/* <Button style={styles.submitButton}
-                onPress={() => navigate('Tracker')}
-                title="Tracker"
-              />
-
-              <Button style={styles.submitButton}
-                onPress={() => navigate('Game')}
-                title="Fleppy"
-              />
-
-              <Menu
-                ref={this.setMenuRef}
-                button={<Text onPress={this.showMenu}>Menu</Text>}>
-                  <MenuItem onPress={this.hideMenu}>Menu item 1</MenuItem>
-                  <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
-                  <MenuItem onPress={this.hideMenu} disabled> Menu item 3</MenuItem>
+              <Icon.Button name="file" backgroundColor="black" onPress={() => navigate('Doc')}>
+                </Icon.Button>
+              <Icon.Button name="file" backgroundColor="black" onPress={() => navigate('Tracker')}>
+                </Icon.Button>
+              <Icon.Button name="file" backgroundColor="black" onPress={() => navigate('Game')}>
+                </Icon.Button>
+              
+              <Menu ref={this.setMenuRef} button={<Icon.Button name="bars" backgroundColor="black" onPress={this.showMenu}/>}>
+                  <MenuItem onPress={this.hideMenu}>Item 1</MenuItem>
+                  <MenuItem onPress={this.hideMenu}>Item 2</MenuItem>
+                  <MenuItem onPress={this.hideMenu} disabled> Item 3</MenuItem>
                   <MenuDivider />
-                  <MenuItem onPress={this.hideMenu}>Menu item 4</MenuItem>
-                </Menu> */}
+                  <MenuItem onPress={this.hideMenu}>Item 4</MenuItem>
+                </Menu>
           </View>
         
       </View>
@@ -102,21 +90,13 @@ const styles = StyleSheet.create({
     height: dimensions.height*0.65,
     alignItems: 'center',
   },
-  submitButton: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderLeftColor: '#000000',
-    borderLeftColor: 1,
-    backgroundColor: '#fff',
-    color: 'red',
-  }, 
   footer: {
     marginRight: dimensions.width*0.2,
     marginLeft: dimensions.width*0.01,
     flexDirection: 'row',
     width: dimensions.width,
     height: dimensions.height*0.1,
-    backgroundColor: 'white',
+    backgroundColor: 'steelblue',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
